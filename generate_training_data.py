@@ -69,11 +69,10 @@ def summarize(file_path, color_pairs, nums):
     raw_img = quantize(raw_img, args.quantize)
     jpeg_img = quantize(jpeg_img, args.quantize).astype(np.uint64)
 
-    for p in range(raw_img.shape[0]):
-        s = tuple(raw_img[p, :])
-        d = jpeg_img[p, :]
-        color_pairs[s] += d
-        nums[s] += 1
+    for i in range(raw_img.shape[0]):
+        c = tuple(raw_img[i, :])
+        color_pairs[c] += jpeg_img[i, :]
+        nums[c] += 1
 
 
 if __name__ == '__main__':
