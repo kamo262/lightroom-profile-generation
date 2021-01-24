@@ -72,7 +72,7 @@ if __name__ == '__main__':
     print('save lut')
 
     lut = colour.LUT3D(pred, size=args.lut_size)
-    colour.write_LUT(lut, args.ut_path)
+    colour.write_LUT(lut, args.lut_path)
 
     print('save models')
 
