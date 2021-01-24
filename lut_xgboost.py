@@ -19,7 +19,7 @@ if __name__ == '__main__':
 
     print('load training data')
 
-    with gzip.open(args.file_path, 'rb') as f:
+    with gzip.open(args.training_data_path, 'rb') as f:
         raw, jpeg = pickle.load(f)
     raw = np.array(raw, dtype=np.float32)
     jpeg = np.array(jpeg, dtype=np.float32)
