@@ -56,7 +56,7 @@ def quantize(v, q):
 
 
 def summarize(file_path, color_pairs, nums):
-    if 'color_pairs_' in file_path.stem:
+    if 'training_data' in file_path.stem:
         return
 
     with gzip.open(file_path, 'rb') as f:
