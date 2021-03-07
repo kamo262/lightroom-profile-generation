@@ -21,6 +21,8 @@ if __name__ == '__main__':
     parser.add_argument('lut_path', type=Path)
     parser.add_argument('--color_space', type=str, default='lab')
     parser.add_argument('--lut_size', type=int, default=33)
+    parser.add_argument('--alpha', type=float, default=1.0)
+    parser.add_argument('--gamma', type=float, default=1.0)
     args = parser.parse_args()
 
     print('load training data')
@@ -101,14 +103,11 @@ if __name__ == '__main__':
     Y = jpeg.T
     fA = np.vstack([model.predict(A) for model in models])
 
-    alpha = 1.0
-    gamma = 1.0
-
     print('compute left hand')
 
     left_hand1 = (W @ W.T) / N
-    left_hand2 = alpha * L
-    left_hand3 = gamma / M * sparse.identity(M, format='csr')
+    left_hand2 = args.alpha * L
+    left_hand3 = args.gamma / M * sparse.identity(M, format='csr')
     left_hand = left_hand1 + left_hand2 + left_hand3
 
     left_hand = left_hand.tocsc()
@@ -116,7 +115,7 @@ if __name__ == '__main__':
     print('compute right hand')
 
     right_hand1 = (Y @ W.T) / N
-    right_hand2 = gamma / M * fA
+    right_hand2 = args.gamma / M * fA
     right_hand = right_hand1 + right_hand2
 
     right_hand = right_hand.astype(np.float32)
